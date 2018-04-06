@@ -1,0 +1,254 @@
+<html>
+<head>
+<title>QuickCrop</title>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+<link rel="stylesheet" href="croppie.css" />
+<script src="croppie.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<style>
+#sizeselector {
+	text-align: center;
+	background-color: #ffd200;
+	padding: 15px;
+	border-radius: 5px;
+	margin: 10px;
+}
+.actions {
+	text-align: center;
+}
+</style>
+
+</head>
+<body>
+
+<div class="demo-wrap upload-demo">
+<div class="container">
+<div class="row">
+	<div class="col-md-12">
+		<h1 align="center">QuickCrop</h1>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<div class="actions">
+			<a class="btn file-btn">
+				<input type="file" id="upload" value="Choose a file" accept="image/*" />
+			</a>
+			<button class="upload-result">Result</button>
+		</div>
+		<div id="sizeselector">
+			<form id="sizeselectionform" onchange="resetCroppie()" style="margin:0px">
+				<input type="radio" id="sizeChoice1" name="size" value="1" checked><label for="sizeChoice1">212x250</label>&nbsp;&nbsp;&nbsp;</input>
+				<input type="radio" id="sizeChoice2" name="size" value="2"><label for="sizeChoice2">424x500</label>&nbsp;&nbsp;&nbsp;</input>
+				<input type="radio" id="sizeChoice3" name="size" value="3"><label for="sizeChoice3">500x500</label></input>
+			</form>
+		</div>
+		<div>Welcome to QuickCrop. QuickCrop is a quick, easy way to crop and resize images on the fly.
+		<br />
+		<br />
+		Simply upload a file using the "Choose File" button, and drag the image around the canvas. What is shown in the white box will be your new image. To zoom in or out, either scroll with your mouse or use the slider underneath the canvas.
+		<br />
+		<br />
+		If you would like to choose a different dimension, simply select that option in the yellow selection section.
+		<br />
+		<br />
+		When you are satisfied with your image, press the "Result" button and preview your new image. To export this image, right click on it and choose "Save image as...".
+		<br />
+		<br />
+		<span style="font-style:italic">This has been made possible with <a href="https://foliotek.github.io/Croppie/">Croppie by FolioTek</a></span>
+		<br />
+		<br />
+		Enjoy!
+		<br />
+		<br />
+		</div>
+	</div>
+	<div class="col-md-6" style="height: 600px">
+		<div class="upload-demo-wrap">
+			<div id="upload-demo"></div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+
+
+<script type="text/javascript">
+
+function output(node) {
+	var existing = $('#result .croppie-result');
+	if (existing.length > 0) {
+		existing[0].parentNode.replaceChild(node, existing[0]);
+	}
+	else {
+		$('#result')[0].appendChild(node);
+	}
+}
+
+function popupResult(result) {
+	var html;
+	if (result.html) {
+		html = result.html;
+	}
+	if (result.src) {
+		html = '<img src="' + result.src + '" />';
+	}
+	swal({
+		title: '',
+		content: {
+			element: "img",
+			attributes: {
+				src: result.src,
+			},
+		},
+		allowOutsideClick: true
+	});
+	setTimeout(function(){
+		$('.sweet-alert').css('margin', function() {
+			var top = -1 * ($(this).height() / 2),
+				left = -1 * ($(this).width() / 2);
+
+			return top + 'px 0 0 ' + left + 'px';
+		});
+	}, 1);
+}
+
+function resetCroppie() {
+	
+	$('#upload-demo').croppie('destroy');
+
+	var sizeOption = new FormData(document.getElementById('sizeselectionform')).getAll('size');
+	
+	if (sizeOption == "1") {
+		$uploadCrop = $('#upload-demo').croppie({
+			viewport: {
+				width: 212,
+				height: 250,
+				type: 'square'
+			},
+			enableExif: true
+		});
+	}
+	else if (sizeOption == "2") {
+		$uploadCrop = $('#upload-demo').croppie({
+			viewport: {
+				width: 424,
+				height: 500,
+				type: 'square'
+			},
+			enableExif: true
+		});
+	}
+	else if (sizeOption == "3") {
+		$uploadCrop = $('#upload-demo').croppie({
+			viewport: {
+				width: 500,
+				height: 500,
+				type: 'square'
+			},
+			enableExif: true
+		});
+	}
+	else {
+		$uploadCrop = $('#upload-demo').croppie({
+			viewport: {
+				width: 212,
+				height: 250,
+				type: 'square'
+			},
+			enableExif: true
+		});
+	}
+	
+	document.getElementById("upload").value = "";
+}
+
+function demoUpload() {
+	var $uploadCrop;
+
+	function readFile(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			
+			reader.onload = function (e) {
+				$('.upload-demo').addClass('ready');
+				$uploadCrop.croppie('bind', {
+					url: e.target.result
+				}).then(function(){
+					console.log('jQuery bind complete');
+				});
+				
+			}
+			
+			reader.readAsDataURL(input.files[0]);
+		}
+		else {
+			swal("Sorry - your browser doesn't support the FileReader API");
+		}
+	}
+
+	var sizeOption = new FormData(document.getElementById('sizeselectionform')).getAll('size');
+	
+	if (sizeOption == "1") {
+		$uploadCrop = $('#upload-demo').croppie({
+			viewport: {
+				width: 212,
+				height: 250,
+				type: 'square'
+			},
+			enableExif: true
+		});
+	}
+	else if (sizeOption == "2") {
+		$uploadCrop = $('#upload-demo').croppie({
+			viewport: {
+				width: 424,
+				height: 500,
+				type: 'square'
+			},
+			enableExif: true
+		});
+	}
+	else if (sizeOption == "3") {
+		$uploadCrop = $('#upload-demo').croppie({
+			viewport: {
+				width: 500,
+				height: 500,
+				type: 'square'
+			},
+			enableExif: true
+		});
+	}
+	else {
+		$uploadCrop = $('#upload-demo').croppie({
+			viewport: {
+				width: 212,
+				height: 250,
+				type: 'square'
+			},
+			enableExif: true
+		});
+	}
+	
+
+	$('#upload').on('change', function () { readFile(this); });
+	$('.upload-result').on('click', function (ev) {
+		$uploadCrop.croppie('result', {
+			type: 'canvas',
+			size: 'viewport'
+		}).then(function (resp) {
+			popupResult({
+				src: resp
+			});
+		});
+	});
+}
+demoUpload();
+</script>
+</body>
+</html>
