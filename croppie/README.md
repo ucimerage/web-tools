@@ -3,7 +3,7 @@
 
 ## To Use
 
-[QuickCrop Link](http://andrewmehta.com/quickcrop)
+[QuickCrop Link](https://ucimerage.github.io/web-tools/croppie/croppie.html)
 
 ## Instructions
 
