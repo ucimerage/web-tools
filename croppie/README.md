@@ -1,56 +1,19 @@
-# Croppie - A Javascript Image Cropper
+# QuickCrop
 
 
-## To Install
-Bower: `bower install croppie`
+## To Use
 
-Npm: `npm install croppie`
+[QuickCrop Link](http://andrewmehta.com/quickcrop)
 
-Download:
-[croppie.js](croppie.js) & [croppie.css](croppie.css)
+## Instructions
 
-## Adding croppie to your site
-```
-<link rel="stylesheet" href="croppie.css" />
-<script src="croppie.js"></script>
-```
+Simply upload a file using the "Choose File" button, and drag the image around the canvas. What is shown in the white box will be your new image. To zoom in or out, either scroll with your mouse or use the slider underneath the canvas. 
 
-## CDN
-cdnjs.com provides croppie via cdn https://cdnjs.com/libraries/croppie
-```
-https://cdnjs.cloudflare.com/ajax/libs/croppie/{version}/croppie.min.css
-https://cdnjs.cloudflare.com/ajax/libs/croppie/{version}/croppie.min.js
-```
+If you would like to choose a different dimension, simply select that option in the yellow selection section. 
+
+When you are satisfied with your image, press the "Result" button and preview your new image. To export this image, right click on it and choose "Save image as...". 
 
 
-## Documentation
-[Documentation](http://foliotek.github.io/Croppie#documentation)
+## Credits
 
-## Related Libraries
-* https://github.com/wem/croppie-dart
-* https://github.com/allenRoyston/ngCroppie
-* https://github.com/lpsBetty/angular-croppie
-* https://github.com/dima-kov/django-croppie
-* https://github.com/jofftiquez/vue-croppie
-
-## Contributing
-First, thanks for contributing.  This project is difficult to maintain with one person.  Here's a "checklist" of things to remember when contributing to croppie.
-* Don't forget to update the documentation.
-* If you're adding a new option/event/method, try adding to an example on the documentation.  Or create a new example, if you feel the need.
-* We don't have tests for Croppie :( (if you want to create tests I'd be forever grateful), so please try to test the functionality you're changing on the demo page.  I've tried to add as many use-cases as I can think of on there.  Compare the functionality in your branch to the one on the official page.  If they all still work, then great!
-
-If you're looking for a simple server to load the demo page, I use https://github.com/tapio/live-server.
-
-#### Minifying
-`uglifyjs croppie.js -c -m -r '$,require,exports' -o croppie.min.js`
-
-#### Releasing a new version
-For the most part, you shouldn't worry about these steps unless you're the one handling the release.  Please don't bump the release and don't minify/uglify in a PR.  That just creates merge conflicts when merging.  Those steps will be peformed when the release is created.
-1. Bump version in croppie.js
-2. Minify/Uglify
-3. Commit
-4. npm version [new version]
-5. `git push && git push --tags`
-6. `npm publish`
-7. Draft a new release with new tag on https://github.com/Foliotek/Croppie/releases
-8. Deploy to gh-pages `npm run deploy`
+This has been made possible with [Croppie by FolioTek ](https://foliotek.github.io/Croppie/)
