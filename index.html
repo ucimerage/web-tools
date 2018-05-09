@@ -1,18 +1,37 @@
+<!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
     <title>Merage Tools</title>
+    <link rel="stylesheet" type="text/css" href="main.css" />
     <script src="custom.js"></script>
   </head>
   <body>
-    <h1>Research Colloquim</h1>
-    <textarea id="rescol" rows="18" cols="131"></textarea>
-    <textarea id="col_result" rows="18" cols="131"></textarea>
-    <br />
-    <button onClick="rescol();">Format</button>
-    <h1>Program Linker</h1>
-    <textarea id="linker" rows="18" cols="131"></textarea>
-    <textarea id="link_result" rows="18" cols="131"></textarea>
-    <br />
-    <button onClick="linker();">Link</button>
+    <h1>Merage Web Tools</h1>
+    <div class="select animated zoomIn">
+        <!-- You can toggle select (disabled) -->
+        <input type="radio" name="option">
+        <i class="toggle icon icon-arrow-down"></i>
+        <i class="toggle icon icon-arrow-up"></i>
+        <span class="placeholder">Select a tool...</span>
+        <label class="option">
+          <input type="radio" name="option" onClick="updateAction('rescol');">
+          <span class="title animated fadeIn"><i class="icon icon-pencil"></i>Research Colloquia</span>
+        </label>
+        <label class="option">
+          <input type="radio" name="option" onClick="updateAction('linker')">
+          <span class="title animated fadeIn"><i class="icon icon-link"></i>Program Linker</span>
+        </label>
+        <label class="option">
+          <input type="radio" name="option" onclick="updateAction('EventTable')">
+          <span class="title animated fadeIn"><i class="icon icon-calendar"></i>Event Table</span>
+        </label>
+    </div>
+
+    <h1 id="tool-name"></h1>
+    <center>
+    <textarea id="input" rows="18" cols="131" onkeyup=""></textarea>
+    <textarea readonly id="result" rows="18" cols="131" onclick="select()"></textarea>
+    </center>
   </body>
 </html>
