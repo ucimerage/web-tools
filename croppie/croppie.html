@@ -119,11 +119,11 @@ function popupResult(result) {
 }
 
 function resetCroppie() {
-	
+
 	$('#upload-demo').croppie('destroy');
 
 	var sizeOption = new FormData(document.getElementById('sizeselectionform')).getAll('size');
-	
+
 	if (sizeOption == "1") {
 		$uploadCrop = $('#upload-demo').croppie({
 			viewport: {
@@ -164,7 +164,7 @@ function resetCroppie() {
 			enableExif: true
 		});
 	}
-	
+
 	document.getElementById("upload").value = "";
 }
 
@@ -174,7 +174,7 @@ function demoUpload() {
 	function readFile(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
-			
+
 			reader.onload = function (e) {
 				$('.upload-demo').addClass('ready');
 				$uploadCrop.croppie('bind', {
@@ -182,9 +182,9 @@ function demoUpload() {
 				}).then(function(){
 					console.log('jQuery bind complete');
 				});
-				
+
 			}
-			
+
 			reader.readAsDataURL(input.files[0]);
 		}
 		else {
@@ -193,7 +193,7 @@ function demoUpload() {
 	}
 
 	var sizeOption = new FormData(document.getElementById('sizeselectionform')).getAll('size');
-	
+
 	if (sizeOption == "1") {
 		$uploadCrop = $('#upload-demo').croppie({
 			viewport: {
@@ -234,13 +234,14 @@ function demoUpload() {
 			enableExif: true
 		});
 	}
-	
+
 
 	$('#upload').on('change', function () { readFile(this); });
 	$('.upload-result').on('click', function (ev) {
 		$uploadCrop.croppie('result', {
 			type: 'canvas',
-			size: 'viewport'
+			size: 'original',
+      format: 'jpeg'
 		}).then(function (resp) {
 			popupResult({
 				src: resp
